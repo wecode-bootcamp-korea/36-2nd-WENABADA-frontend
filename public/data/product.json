@@ -1,0 +1,138 @@
+[
+  {
+    "id": 1,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-3-2 15:12:05"
+  },
+  {
+    "id": 2,
+    "name": "바지 청바지 바지 청바지",
+    "location": "경기도 남양주 남양주",
+    "price": "5000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-9-2 15:12:05"
+  },
+  {
+    "id": 3,
+    "name": "옷 상의 옷",
+    "location": "제주도 어딘가",
+    "price": "6000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-23 15:12:05"
+  },
+  {
+    "id": 4,
+    "name": "귀걸이 바지 귀걸이",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2021-4-27 15:12:05"
+  },
+  {
+    "id": 5,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2012-8-27 15:12:05"
+  },
+  {
+    "id": 6,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 7,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 8,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 9,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 10,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 11,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 12,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 13,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 14,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 15,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 16,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  },
+  {
+    "id": 17,
+    "name": "냠냠 뇸뇸 냠냠 상의 냠냠 뇸뇸",
+    "location": "경기도 수원시 호계동",
+    "price": "600000",
+    "image_url": "https://cdn.pixabay.com/photo/2018/03/12/22/15/clothing-3221103_960_720.jpg",
+    "date": "2022-8-27 15:12:05"
+  }
+]
