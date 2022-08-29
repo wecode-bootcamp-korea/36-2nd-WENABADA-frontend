@@ -1,6 +1,7 @@
 import React from 'react';
 
-function Detail() {
-  return <h1>Detail 입니다.</h1>;
-}
+const Detail = () => {
+  return <div>Detail</div>;
+};
+
 export default Detail;
