@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 
