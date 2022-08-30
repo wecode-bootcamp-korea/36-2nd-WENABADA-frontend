@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Footer from './components/Footer/Footer';
+import Nav from './components/Nav/Nav.js';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Footer />} />
+        <Route path="/" element={<Nav />} />
       </Routes>
     </BrowserRouter>
   );
