@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 function Main() {
   const location = useLocation();
   const props = location.state;
-  const [isList] = useState(props?.itemRoot);
+  const [isList, setisList] = useState(props?.itemRoot);
 
   return isList ? <ListProducts /> : <MainProducts />;
 }
