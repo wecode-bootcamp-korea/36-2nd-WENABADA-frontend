@@ -6,6 +6,7 @@ export const NavAside = styled.div`
   top: 100px;
   right: 100px;
   width: 100px;
+  z-index: 101;
 `;
 
 export const NavAsideTop = styled.div`
@@ -13,7 +14,8 @@ export const NavAsideTop = styled.div`
   margin-top: 10px;
   width: 90px;
   background-color: white;
-  border: 1px solid gray;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 `;
 
 export const NavAsideTopLike = styled.p`
@@ -37,7 +39,8 @@ export const NavAsideLastest = styled.div`
   margin-top: 10px;
   width: 90px;
   background-color: white;
-  border: 1px solid gray;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 `;
 
 export const NavAsideLastestText = styled.p`
@@ -54,9 +57,10 @@ export const NavAsideLastestImageWrap = styled.div`
   position: relative;
   height: 70px;
   background-color: white;
-  border: 2px solid black;
-  width: ${props => (props.viewLastest ? '230px' : '70px')};
-  margin: ${props => (props.viewLastest ? '8px 160px 8px 0' : '8px 0px 8px 0')};
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  width: ${props => (props.viewLastest ? '300px' : '70px')};
+  margin: ${props => (props.viewLastest ? '8px 230px 8px 0' : '8px 0px 8px 0')};
 `;
 
 export const NavAsideLastestImage = styled.img`
@@ -86,7 +90,8 @@ export const NavAsideScrollTop = styled.div`
   padding: 10px 0;
   width: 90px;
   background-color: white;
-  border: 1px solid gray;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   color: #666666;
   font-weight: bold;
 `;

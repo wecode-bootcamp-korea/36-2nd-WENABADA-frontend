@@ -1,5 +1,6 @@
 import React from 'react';
 import { Category } from './NavDropdownCategoryStyle.js';
+import { useNavigate } from 'react-router-dom';
 
 function NavDropdownCategory({
   name,
@@ -9,6 +10,9 @@ function NavDropdownCategory({
   currentIndex,
   nextIndex,
 }) {
+  const navigate = useNavigate();
+
+  const categoryNavigate = () => navigate('/', { state: selectDropdown });
   const navDropdownCategoryMouseEnter = () => {
     nextIndex !== ''
       ? setSelectDropdown({
@@ -24,6 +28,7 @@ function NavDropdownCategory({
 
   return (
     <Category
+      onClick={categoryNavigate}
       onMouseEnter={navDropdownCategoryMouseEnter}
       style={{
         backgroundColor: `${

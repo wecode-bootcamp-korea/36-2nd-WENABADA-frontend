@@ -8,29 +8,35 @@ export const Nav = styled.div`
   width: 100%;
   border-bottom: 1px solid #cccccc;
   background-color: white;
+  z-index: 100;
+`;
+
+export const NavAllWrap = styled.div`
+  ${props => props.theme.variables.flex('column', 'center', 'center')}
+  width: 70%;
 `;
 
 export const NavTopContainer = styled.div`
   ${props => props.theme.variables.flex('', 'space-between', '')}
-  width: 1024px;
+  width: 100%;
   height: 40px;
 `;
 
 export const NavLogo = styled.div`
-  ${props => props.theme.variables.flex()}
-  width: 136px;
-  height: 100%;
+  ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
+  width: 150px;
+  height: 40px;
 `;
 
 export const NavLogoImage = styled.img`
-  width: 200%;
-  height: 200%;
+  width: 100%;
+  height: 100%;
 `;
 
 export const NavSearchContainer = styled.div`
   ${props => props.theme.variables.flex('', 'flex-start', '')}
   position: relative;
-  margin-left: 40px;
+  margin-left: 30px;
 `;
 
 export const NavSearch = styled.input`
@@ -66,21 +72,22 @@ export const NavSearchIcon = styled.button`
 
 export const NavMenu = styled.div`
   ${props => props.theme.variables.flex('', 'space-between', '')}
-  width: 350px;
+  width: 180px;
 `;
 
 export const Menu = styled.div`
   ${props => props.theme.variables.flex()}
-  margin-left: 30px;
+  margin-right: 5px;
 `;
 
 export const MenuIcon = styled.div`
-  margin: 5px 10px 0 0;
+  margin: 10px 0 0 0;
   width: 25px;
   height: 25px;
 `;
 
 export const MenuText = styled.span`
+  width: 65px;
   padding-left: 5px;
   color: black;
   font-size: 14px;
@@ -89,7 +96,7 @@ export const MenuText = styled.span`
 
 export const NavBottoContainer = styled.div`
   ${props => props.theme.variables.flex()}
-  margin-right: 70%;
+  margin-right: calc(100% - 30px);
   width: 30px;
   height: 70px;
 `;
