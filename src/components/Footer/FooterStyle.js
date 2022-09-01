@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   border-top: 1px solid #aaaaaa;
 `;
 

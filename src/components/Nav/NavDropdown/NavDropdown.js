@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import * as S from './NavDropdownStyle.js';
 import NavDropdownCategory from './NavDropdownCategory/NavDropdownCategory.js';
 import { CategoryData } from './NavDropdownData.js';
-
 function NavDropdown({ setIsDropdownHover }) {
   const [selectDropdown, setSelectDropdown] = useState({
     first: -1,
@@ -11,7 +10,7 @@ function NavDropdown({ setIsDropdownHover }) {
   });
 
   return (
-    <div className="navDropdown" onMouseLeave={() => setIsDropdownHover(false)}>
+    <S.NavDropdown onMouseLeave={() => setIsDropdownHover(false)}>
       <S.NavDropdownFirst>
         <div>
           <S.NavDropdownHeader>전체 카테고리</S.NavDropdownHeader>
@@ -74,7 +73,7 @@ function NavDropdown({ setIsDropdownHover }) {
           </div>
         </S.NavDropdownThird>
       )}
-    </div>
+    </S.NavDropdown>
   );
 }
 export default NavDropdown;
