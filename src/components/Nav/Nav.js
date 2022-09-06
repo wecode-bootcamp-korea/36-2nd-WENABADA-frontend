@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavAside from './NavAside/NavAside.js';
 import NavDropdown from './NavDropdown/NavDropdown.js';
+import Login from '../Login/Login.js';
 import { MenuData } from './NavData.js';
 import * as S from './NavStyle.js';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,21 @@ function Nav() {
   const navigate = useNavigate();
   const [isDropdownHover, setIsDropdownHover] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  const openModal = className => {
+    const istoken = localStorage.getItem('token');
+    if (istoken) {
+      if (className === 'fa-solid fa-sack-dollar fa-2xl') {
+        navigate('/sell');
+      } else {
+        navigate('/shop');
+      }
+    } else {
+      setLoginModalOpen(true);
+    }
+  };
 
   const haddleInput = event => {
     setSearchValue(event.target.value);
@@ -49,7 +65,7 @@ function Nav() {
             <S.NavMenu>
               {MenuData.map(({ className, text }, index) => {
                 return (
-                  <S.Menu key={index}>
+                  <S.Menu key={index} onClick={() => openModal(className)}>
                     <S.MenuIcon>
                       <i className={className} />
                     </S.MenuIcon>
@@ -73,6 +89,7 @@ function Nav() {
           </S.NavBottoContainer>
         </S.NavAllWrap>
       </S.Nav>
+      {loginModalOpen && <Login setLoginModalOpen={setLoginModalOpen} />}
       <NavAside />
     </>
   );
