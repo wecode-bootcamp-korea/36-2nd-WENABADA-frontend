@@ -7,7 +7,7 @@ function NavAside() {
   const [lastestView, setLastestView] = useState({});
 
   useEffect(() => {
-    fetch('http://10.58.5.139:3000/products/like/number', {
+    fetch('http://43.201.31.17:3000/products/like/number', {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
@@ -19,7 +19,7 @@ function NavAside() {
   }, []);
 
   useEffect(() => {
-    fetch('http://10.58.5.139:3000/products/recent/watch/list', {
+    fetch('http://43.201.31.17:3000/products/recent/watch/list', {
       headers: {
         'Content-Type': 'application/json',
         Authorization:

@@ -3,12 +3,10 @@ import styled from 'styled-components';
 
 function FollowBtn({ follow_id }) {
   const unFollow = follow_id => {
-    fetch(
-      `http://10.58.5.86:3000/shop/follow?userId=21&followId=${follow_id}`,
-      {
-        method: 'POST',
-      }
-    );
+    fetch(`http://10.58.5.86:3000/shop/follow?followId=${follow_id}`, {
+      method: 'POST',
+      headers: { Authorization: localStorage.getItem('token') },
+    });
   };
 
   return (

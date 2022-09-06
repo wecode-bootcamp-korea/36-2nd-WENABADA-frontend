@@ -1,7 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function LikeProduct({ name, price, create, location, image_url }) {
+function LikeProduct({ id, name, price, create, location, image_url }) {
   const from = new Date(create);
   const today = new Date();
   const agoDate = today - from;
@@ -20,8 +21,14 @@ function LikeProduct({ name, price, create, location, image_url }) {
     if (agoSeconds >= 1) return `${agoSeconds}시간 전`;
   };
 
+  const navigate = useNavigate();
+
+  const goToProduct = id => {
+    navigate(`/products/info?id=${id}`);
+  };
+
   return (
-    <LikeProductContainer>
+    <LikeProductContainer onClick={() => goToProduct(id)}>
       <ProductImgBox>
         <ProductImg alt="상품사진" src={image_url} />
       </ProductImgBox>
@@ -52,6 +59,10 @@ const LikeProductContainer = styled.div`
 
   &:nth-child(even) {
     margin-right: 20px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ShopProduct from './components/ShopProduct';
 import ShopReview from './components/ShopReview';
 import LikeProduct from './components/LikeProduct';
 import ShopProfileCard from './components/ShopProfileCard';
 import styled from 'styled-components';
 
-function DetailContents({ activeTab, user_id }) {
+function DetailContents({ activeTab }) {
   const [product, setProduct] = useState([]);
   const [review, setReview] = useState([]);
   const [like, setLike] = useState([]);
   const [following, setFollowing] = useState([]);
 
-  const navigate = useNavigate();
-
-  const goToProduct = id => {
-    navigate(`/product/${id}`);
-  };
-
   if (activeTab === 1) {
-    fetch('http://10.58.5.86:3000/shop/product?userId=21', {
-      //headers: { Authorization: localStorage.getItem('token') },
+    fetch('http://10.58.5.86:3000/shop/product', {
+      headers: { Authorization: localStorage.getItem('token') },
     })
       .then(res => res.json())
       .then(res => {
@@ -52,7 +45,6 @@ function DetailContents({ activeTab, user_id }) {
                 price={el.price.toLocaleString()}
                 image_url={el.image_url}
                 location={el.location}
-                onClick={() => goToProduct(el.id)}
               />
             );
           })
@@ -62,7 +54,9 @@ function DetailContents({ activeTab, user_id }) {
   }
 
   if (activeTab === 2) {
-    fetch('http://10.58.5.86:3000/shop/review?userId=21')
+    fetch('http://10.58.5.86:3000/shop/review', {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then(res => res.json())
       .then(res => {
         setReview(res.myStoreReviewInfo);
@@ -91,7 +85,6 @@ function DetailContents({ activeTab, user_id }) {
                 name={el.name}
                 social_id={el.social_id}
                 review={el.review}
-                goToProduct={goToProduct}
               />
             );
           })
@@ -101,7 +94,9 @@ function DetailContents({ activeTab, user_id }) {
   }
 
   if (activeTab === 3) {
-    fetch('http://10.58.5.86:3000/shop/like?userId=21')
+    fetch('http://10.58.5.86:3000/shop/like', {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then(res => res.json())
       .then(res => {
         setLike(res.myStoreLikeInfo);
@@ -126,12 +121,12 @@ function DetailContents({ activeTab, user_id }) {
             return (
               <LikeProduct
                 key={el.id}
+                id={el.id}
                 name={el.name}
                 price={el.price.toLocaleString()}
-                create={el.create}
-                location={el.location}
+                create={el.date}
+                location={el.address}
                 image_url={el.image_url}
-                onClick={() => goToProduct(el.id)}
               />
             );
           })
@@ -141,7 +136,9 @@ function DetailContents({ activeTab, user_id }) {
   }
 
   if (activeTab === 4) {
-    fetch(`http://10.58.5.86:3000/shop/following?userId=${user_id}`)
+    fetch('http://10.58.5.86:3000/shop/following', {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then(res => res.json())
       .then(res => {
         setFollowing(res.myStoreFollowingInfo);
