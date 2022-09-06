@@ -1,7 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function ShopReview({ id, name, social_id, review, goToProduct }) {
+function ShopReview({ id, name, social_id, review }) {
+  const navigate = useNavigate();
+  const goToProduct = id => {
+    navigate(`/products/info?id=${id}`);
+  };
+
   return (
     <ShopReviewContainer>
       <ReviewerIcon>
@@ -66,6 +72,10 @@ const ReviewProduct = styled.div`
 
   i {
     color: rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

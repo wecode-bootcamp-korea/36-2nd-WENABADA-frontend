@@ -5,6 +5,7 @@ import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import LoginLoading from './components/Login/LoginLoading';
 import Shop from './pages/Shop/Shop';
+import Detail from './pages/Detail/Detail';
 import Footer from './components/Footer/Footer';
 
 const Router = () => {
@@ -14,6 +15,7 @@ const Router = () => {
       <Routes>
         <Route path="/post" element={<Post />} />
         <Route path="/" element={<Main />} />
+        <Route path="/products/info" element={<Detail />} />
         <Route path="/auth/kakao/callback" element={<LoginLoading />} />
         <Route path="/shop" element={<Shop />} />
       </Routes>

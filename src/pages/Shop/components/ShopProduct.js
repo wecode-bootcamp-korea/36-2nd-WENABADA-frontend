@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function ShopProduct({ id, name, price, image_url, create, location }) {
@@ -20,8 +21,14 @@ function ShopProduct({ id, name, price, image_url, create, location }) {
     if (agoSeconds >= 1) return `${agoSeconds}시간 전`;
   };
 
+  const navigate = useNavigate();
+
+  const goToProduct = id => {
+    navigate(`/products/info?id=${id}`);
+  };
+
   return (
-    <ShopProductContainer>
+    <ShopProductContainer onClick={() => goToProduct(id)}>
       <ProductImgBox>
         <ProductImg alt="상품이름" src={image_url} />
       </ProductImgBox>
@@ -51,6 +58,10 @@ const ShopProductContainer = styled.div`
 
   &:nth-child(5n + 1) {
     margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
