@@ -78,6 +78,10 @@ export const NavMenu = styled.div`
 export const Menu = styled.div`
   ${props => props.theme.variables.flex()}
   margin-right: 5px;
+  margin-left: 30px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const MenuIcon = styled.div`
