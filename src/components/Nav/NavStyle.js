@@ -26,6 +26,9 @@ export const NavLogo = styled.div`
   ${props => props.theme.variables.flex('row', 'flex-start', 'center')}
   width: 150px;
   height: 40px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const NavLogoImage = styled.img`

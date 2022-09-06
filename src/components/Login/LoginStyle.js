@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const LoginModalBackground = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   z-index: 599;
   top: 0;
