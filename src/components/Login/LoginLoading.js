@@ -20,7 +20,7 @@ function LoginLoading() {
       .then(response => response.json())
       .then(result => {
         if (result)
-          fetch(`http://10.58.5.139:3000/users/login`, {
+          fetch(`http://43.201.31.17:3000/users/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

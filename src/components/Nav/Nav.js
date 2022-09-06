@@ -16,8 +16,8 @@ function Nav() {
   const openModal = className => {
     const istoken = localStorage.getItem('token');
     if (istoken) {
-      if (className === 'fa-solid fa-sack-dollar fa-2xl') {
-        navigate('/sell');
+      if (className === 'fa-solid fa-sack-dollar fa-lg') {
+        navigate('/post');
       } else {
         navigate('/shop');
       }
@@ -36,13 +36,17 @@ function Nav() {
     }
   };
 
+  const goToMain = () => {
+    navigate('/');
+  };
+
   return (
     <>
       <S.Nav onMouseLeave={() => setIsDropdownHover(false)}>
         <S.NavAllWrap>
           <S.NavTopContainer>
-            <S.NavLogo>
-              <S.NavLogoImage src="images/logo.png" alt="LogoImage" />
+            <S.NavLogo onClick={goToMain}>
+              <S.NavLogoImage src="/images/logo.png" alt="LogoImage" />
             </S.NavLogo>
             <S.NavSearchContainer>
               <S.NavSearch

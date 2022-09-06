@@ -1,0 +1,32 @@
+[
+  {
+    "user_id": 1,
+    "social_id": "111",
+    "product": 1,
+    "follow": 1
+  },
+  {
+    "user_id": 2,
+    "social_id": "222",
+    "product": 2,
+    "follow": 2
+  },
+  {
+    "user_id": 3,
+    "social_id": "333",
+    "product": 3,
+    "follow": 3
+  },
+  {
+    "user_id": 4,
+    "social_id": "444",
+    "product": 4,
+    "follow": 4
+  },
+  {
+    "user_id": 5,
+    "social_id": "555",
+    "product": 5,
+    "follow": 5
+  }
+]
