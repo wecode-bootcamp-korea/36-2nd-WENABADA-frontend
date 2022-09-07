@@ -8,6 +8,6 @@ function Main() {
   const props = location.state;
   const [isList, setisList] = useState(props?.itemRoot);
 
-  return isList ? <ListProducts /> : <MainProducts />;
+  return <ListProducts />;
 }
 export default Main;

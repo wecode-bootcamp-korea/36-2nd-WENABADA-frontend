@@ -6,9 +6,10 @@ import DropDown from '../../../components/DropDown/DropDown';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 const ListProducts = () => {
-  const location = useLocation();
-  const props = location.state;
-  const [itemRoot, setItemRoot] = useState(props?.itemRoot);
+  // const location = useLocation();
+  // const props = location.state;
+  // const [itemRoot, setItemRoot] = useState(props?.itemRoot);
+  const [itemRoot, setItemRoot] = useState({ first: 1, second: 1, third: 1 });
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState('new');
   const [sortUrl, setSortUrl] = useState('new');
@@ -18,7 +19,7 @@ const ListProducts = () => {
   const subCategory = searchParams.get('subCategory');
   const lastCategory = searchParams.get('lastCategory');
   const pageNo = searchParams.get('pageNo');
-  const limit = searchParams.get('Limit');
+  const limit = searchParams.get('limit');
   const option = searchParams.get('option');
 
   let categoryUrl = '';
@@ -30,10 +31,10 @@ const ListProducts = () => {
 
   useEffect(() => {
     setSort('new');
-    setSortUrl('new');
+    categoryUrl === 'sub/' ? setSortUrl('') : setSortUrl('new');
     searchParams.set('option', 'DESC');
     searchParams.set('pageNo', 1);
-    searchParams.set('Limit', 10);
+    searchParams.set('limit', 10);
     searchParams.set('option', 'DESC');
     searchParams.set('firstCategory', first + 1);
     second !== -1
@@ -48,13 +49,18 @@ const ListProducts = () => {
 
   useEffect(() => {
     fetch(
-      `http://10.58.5.86:3000/category/main/${categoryUrl}${sortUrl}?firstCategory=${firstCategory}&subCategory=${subCategory}&lastCategory=${lastCategory}&pageNo=${pageNo}&Limit=${limit}&option=${option}`,
+      `http://10.58.5.86:3000/category/main/${categoryUrl}${sortUrl}?firstCategory=${firstCategory}&subCategory=${subCategory}&lastCategory=${lastCategory}&pageNo=${pageNo}&limit=${limit}&option=${option}`,
       {
         method: 'GET',
       }
     )
       .then(res => res.json())
-      .then(setProducts);
+      .then(data => {
+        if (data.message === 'List Empty') {
+          return;
+        }
+        setProducts(data);
+      });
   }, [
     firstCategory,
     subCategory,
