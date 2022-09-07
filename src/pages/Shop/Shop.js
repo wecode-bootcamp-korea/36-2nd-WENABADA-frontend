@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DetailContents from './DetailContents';
 import * as S from './ShopStyle';
+import { API } from '../../config';
 
 function Shop() {
   const [activeTab, setActiveTab] = useState(1);
@@ -43,20 +44,13 @@ function Shop() {
   };
 
   useEffect(() => {
-    fetch('http://10.58.5.86:3000/shop', {
+    fetch(API.SHOP, {
       headers: { Authorization: localStorage.getItem('token') },
     })
       .then(response => response.json())
       .then(result => {
         setShopInfo(result.shopInfo[0]);
       });
-
-    // MOCK_DATA용 fetch입니다.
-    // fetch('http://localhost:3000/data/shop.json')
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     setShopInfo(result[0]);
-    //   });
   }, []);
 
   return (

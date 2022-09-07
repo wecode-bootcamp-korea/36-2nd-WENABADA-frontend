@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './Styled.RelationCarousel';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../../config';
+
 const RelationCarousel = ({ productId }) => {
   const [products, setProducts] = useState([]);
   const [carouselNum, setCarouselNum] = useState(1);
@@ -8,12 +10,12 @@ const RelationCarousel = ({ productId }) => {
 
   // 연관 상품 받아오기
   useEffect(() => {
-    fetch(
-      `http://10.58.5.86:3000/product/relate?id=${productId}&Limit=10&offset=0`,
-      {
-        method: 'GET',
-      }
-    )
+    fetch(`${API.RELATION}${productId}&Limit=10&offset=0`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
+    })
       .then(res => res.json())
       .then(data => setProducts(data));
   }, [productId]);
@@ -37,6 +39,7 @@ const RelationCarousel = ({ productId }) => {
 
   const goToDetail = id => {
     navigate(`/product/${id}`);
+    window.scroll(0, 0);
   };
 
   return (

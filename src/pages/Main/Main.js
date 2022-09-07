@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ListProducts from './ListProducts/ListProducts';
 import MainProducts from './MainProducts/MainProducts';
-import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { mainProductsData, searchValue } from '../../atom';
 
 function Main() {
-  const location = useLocation();
-  const props = location.state;
-  const [isList, setisList] = useState(props?.itemRoot);
+  const mainProductsDataState = useRecoilValue(mainProductsData);
+  const searchValues = useRecoilValue(searchValue);
 
-  return;
-  isList ? <ListProducts /> : <MainProducts />;
+  return mainProductsDataState?.first === -1 && searchValues === '' ? (
+    <MainProducts />
+  ) : (
+    <ListProducts />
+  );
 }
 export default Main;

@@ -3,17 +3,19 @@ import * as S from './Styled.ListProducts';
 import Product from '../../../components/Product/Product';
 import Category from './Category/Category';
 import DropDown from '../../../components/DropDown/DropDown';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { mainProductsData, searchValue } from '../../../atom';
+import { useRecoilValue } from 'recoil';
+import { API } from '../../../config';
 
 const ListProducts = () => {
-  const location = useLocation();
-  const props = location.state;
-  const [itemRoot, setItemRoot] = useState(props?.itemRoot);
+  const mainProductsDataState = useRecoilValue(mainProductsData);
+  const searchValues = useRecoilValue(searchValue);
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState('new');
   const [sortUrl, setSortUrl] = useState('new');
   const [searchParams, setSearchParams] = useSearchParams();
-  const { first, second, third } = itemRoot;
+  const { first, second, third } = mainProductsDataState;
   const firstCategory = searchParams.get('firstCategory');
   const subCategory = searchParams.get('subCategory');
   const lastCategory = searchParams.get('lastCategory');
@@ -46,16 +48,19 @@ const ListProducts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [first, second, third]);
 
+  const URL =
+    searchValues === ''
+      ? `${API.MAIN_CATEGORY}${categoryUrl}${sortUrl}?firstCategory=${firstCategory}&subCategory=${subCategory}&lastCategory=${lastCategory}&pageNo=${pageNo}&limit=${limit}&option=${option}`
+      : `${API.MAIN_SEARCH}${searchValues}`;
+
   useEffect(() => {
-    fetch(
-      `http://10.58.5.86:3000/category/main/${categoryUrl}${sortUrl}?firstCategory=${firstCategory}&subCategory=${subCategory}&lastCategory=${lastCategory}&pageNo=${pageNo}&limit=${limit}&option=${option}`,
-      {
-        method: 'GET',
-      }
-    )
+    fetch(URL)
       .then(res => res.json())
       .then(data => {
-        if (data.message === 'List Empty') {
+        if (
+          data.message === 'INVALID_DATA_INPUT' ||
+          data.message === 'List Empty'
+        ) {
           return;
         }
         setProducts(data);
@@ -69,6 +74,7 @@ const ListProducts = () => {
     sortUrl,
     option,
     categoryUrl,
+    URL,
   ]);
 
   const movePage = pageNo => {
@@ -95,12 +101,11 @@ const ListProducts = () => {
   if (products.length === 0) return;
   const itemTotalNum = products[0]?.counts;
   const pageTotalNum = parseInt(itemTotalNum / 10 + (itemTotalNum % 10 > 0));
-
   return (
     <S.Area>
       <S.Container>
-        <DropDown itemRoot={itemRoot} setItemRoot={setItemRoot} />
-        <Category itemRoot={itemRoot} setItemRoot={setItemRoot} />
+        {mainProductsDataState.first > -1 && <DropDown />}
+        {mainProductsDataState.first > -1 && <Category />}
         <S.ItemInfoContainer>
           <S.ItemInfoBox>
             <S.Title>가방의 전체상품</S.Title>
@@ -128,21 +133,24 @@ const ListProducts = () => {
           </S.SequenceBox>
         </S.ItemInfoContainer>
         <S.ProductContainer>
-          {products.map(product => {
-            return <Product key={product.id} {...product} />;
-          })}
+          {products.length > 1 &&
+            products.map(product => {
+              return <Product key={product.id} {...product} />;
+            })}
         </S.ProductContainer>
-        <S.PageNationBox>
-          {[...Array(pageTotalNum)].map((_, i) => (
-            <S.PageNationNum
-              isCurrentPage={Number(pageNo) === i + 1}
-              onClick={() => movePage(i + 1, pageNo)}
-              key={i}
-            >
-              {i + 1}
-            </S.PageNationNum>
-          ))}
-        </S.PageNationBox>
+        {searchValues.length < 1 && (
+          <S.PageNationBox>
+            {[...Array(pageTotalNum)].map((_, i) => (
+              <S.PageNationNum
+                isCurrentPage={Number(pageNo) === i + 1}
+                onClick={() => movePage(i + 1, pageNo)}
+                key={i}
+              >
+                {i + 1}
+              </S.PageNationNum>
+            ))}
+          </S.PageNationBox>
+        )}
       </S.Container>
     </S.Area>
   );

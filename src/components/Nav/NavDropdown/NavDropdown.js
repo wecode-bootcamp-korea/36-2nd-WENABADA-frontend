@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './NavDropdownStyle.js';
 import NavDropdownCategory from './NavDropdownCategory/NavDropdownCategory.js';
 import { CategoryData } from './NavDropdownData.js';
+import { useRecoilValue } from 'recoil';
+import { categoryState } from '../../../atom.js';
 function NavDropdown({ setIsDropdownHover }) {
-  const [selectDropdown, setSelectDropdown] = useState({
-    first: -1,
-    second: -1,
-    third: -1,
-  });
+  const categoryStates = useRecoilValue(categoryState);
 
   return (
     <S.NavDropdown onMouseLeave={() => setIsDropdownHover(false)}>
@@ -17,57 +15,54 @@ function NavDropdown({ setIsDropdownHover }) {
           {CategoryData.map((data, index) => (
             <NavDropdownCategory
               key={index}
-              setSelectDropdown={setSelectDropdown}
               id={index}
               name={data.name}
-              selectDropdown={selectDropdown}
               currentIndex="first"
               nextIndex="second"
+              setIsDropdownHover={setIsDropdownHover}
             />
           ))}
         </div>
       </S.NavDropdownFirst>
-      {selectDropdown.first > -1 && (
+      {categoryStates.first > -1 && (
         <S.NavDropdownSecond>
           <div>
             <S.NavDropdownHeader>
-              {CategoryData[selectDropdown.first].name}
+              {CategoryData[categoryStates.first].name}
             </S.NavDropdownHeader>
-            {CategoryData[selectDropdown.first].category.map((data, index) => (
+            {CategoryData[categoryStates.first].category.map((data, index) => (
               <NavDropdownCategory
                 key={index}
                 name={data.name}
                 id={index}
-                setSelectDropdown={setSelectDropdown}
-                selectDropdown={selectDropdown}
                 currentIndex="second"
                 nextIndex="third"
+                setIsDropdownHover={setIsDropdownHover}
               />
             ))}
           </div>
         </S.NavDropdownSecond>
       )}
-      {selectDropdown.second > -1 && (
+      {categoryStates.second > -1 && (
         <S.NavDropdownThird>
           <div>
             <S.NavDropdownHeader>
               {
-                CategoryData[selectDropdown.first].category[
-                  selectDropdown.second
+                CategoryData[categoryStates.first].category[
+                  categoryStates.second
                 ].name
               }
             </S.NavDropdownHeader>
-            {CategoryData[selectDropdown.first].category[
-              selectDropdown.second
+            {CategoryData[categoryStates.first].category[
+              categoryStates.second
             ].category.map((data, index) => (
               <NavDropdownCategory
                 key={index}
                 id={index}
                 name={data.name}
-                selectDropdown={selectDropdown}
-                setSelectDropdown={setSelectDropdown}
                 currentIndex="third"
                 nextIndex=""
+                setIsDropdownHover={setIsDropdownHover}
               />
             ))}
           </div>

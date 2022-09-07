@@ -5,11 +5,15 @@ import Login from '../Login/Login.js';
 import { MenuData } from './NavData.js';
 import * as S from './NavStyle.js';
 import { useNavigate } from 'react-router-dom';
+import { mainProductsData, searchValue } from '../../atom.js';
+import { useResetRecoilState, useRecoilState } from 'recoil';
 
 function Nav() {
   const navigate = useNavigate();
+  const resetMainProductsDataState = useResetRecoilState(mainProductsData);
+  const [searchValues, setSearchValues] = useRecoilState(searchValue);
+  const [localSearch, setLocalSearch] = useState('');
   const [isDropdownHover, setIsDropdownHover] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
 
@@ -18,8 +22,10 @@ function Nav() {
     if (istoken) {
       if (className === 'fa-solid fa-sack-dollar fa-lg') {
         navigate('/post');
+        window.scroll(0, 0);
       } else {
         navigate('/shop');
+        window.scroll(0, 0);
       }
     } else {
       setLoginModalOpen(true);
@@ -27,17 +33,24 @@ function Nav() {
   };
 
   const haddleInput = event => {
-    setSearchValue(event.target.value);
+    setLocalSearch(event.target.value);
   };
 
   const searchSubmit = event => {
     if (event.keyCode === 13) {
-      navigate(`/`, { state: searchValue });
+      setSearchValues(localSearch);
+      setTimeout(() => {
+        navigate(`/`);
+      }, 0);
     }
   };
 
   const goToMain = () => {
+    resetMainProductsDataState();
+    setSearchValues('');
+    setLocalSearch('');
     navigate('/');
+    window.scroll(0, 0);
   };
 
   return (
@@ -52,17 +65,20 @@ function Nav() {
               <S.NavSearch
                 placeholder="상품, 지역명 검색"
                 onChange={haddleInput}
-                value={searchValue}
+                value={localSearch}
                 onKeyDown={searchSubmit}
               />
-              {searchValue !== '' && (
-                <S.NavSearchDelete onClick={() => setSearchValue('')}>
+              {localSearch !== '' && (
+                <S.NavSearchDelete
+                  onClick={() => {
+                    setSearchValues('');
+                    setLocalSearch('');
+                  }}
+                >
                   <i className="fa-solid fa-x" />
                 </S.NavSearchDelete>
               )}
-              <S.NavSearchIcon
-                onClick={() => navigate(`/`, { state: searchValue })}
-              >
+              <S.NavSearchIcon onClick={() => navigate(`/${searchValues}`)}>
                 <i className="fa-solid fa-magnifying-glass fa-lg" />
               </S.NavSearchIcon>
             </S.NavSearchContainer>

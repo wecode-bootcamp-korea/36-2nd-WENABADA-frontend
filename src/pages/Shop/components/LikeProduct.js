@@ -24,7 +24,8 @@ function LikeProduct({ id, name, price, create, location, image_url }) {
   const navigate = useNavigate();
 
   const goToProduct = id => {
-    navigate(`/products/info?id=${id}`);
+    navigate(`/product/${id}`);
+    window.scroll(0, 0);
   };
 
   return (

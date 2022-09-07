@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { API } from '../../../config';
 
 function FollowBtn({ follow_id }) {
   const unFollow = follow_id => {
-    fetch(`http://10.58.5.86:3000/shop/follow?followId=${follow_id}`, {
+    fetch(`${API.UN_FOLLOW}${follow_id}`, {
       method: 'POST',
       headers: { Authorization: localStorage.getItem('token') },
     });

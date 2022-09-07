@@ -2,21 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Product from '../../../components/Product/Product';
 import Carousel from './Carousel/Carousel';
 import * as S from './styled.MainProducts';
+import { API } from '../../../config';
 
 function MainProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('./data/product.json', {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(setProducts);
-  }, []);
-
-  useEffect(() => {
     localStorage.token
-      ? fetch('http://10.58.5.139:3000/products/recommend/list', {
+      ? fetch(API.RECOMMEND, {
           headers: {
             'Content-Type': 'application/json',
             authorization: localStorage.getItem('token'),
@@ -24,7 +17,7 @@ function MainProducts() {
         })
           .then(res => res.json())
           .then(data => setProducts(data.productRecommendList))
-      : fetch('http://10.58.5.139:3000/products/random/list')
+      : fetch(API.RANDOM)
           .then(res => res.json())
           .then(data => setProducts(data.productRandomList));
   }, []);
