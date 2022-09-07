@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { REST_API_KEY, REDIRECT_URI } from './KaKaoData';
+import { REDIRECT_URI } from './KaKaoData';
 import styled from 'styled-components';
 
 function LoginLoading() {
@@ -11,16 +11,18 @@ function LoginLoading() {
   const params = new URL(document.location).searchParams;
   const KAKAO_CODE = params.get('code');
 
+  const KAKAO_KEY = process.env.REACT_APP_REST_APP_KEY;
+
   const getKakaoToken = () => {
     fetch(`https://kauth.kakao.com/oauth/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `grant_type=${grant_type}&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+      body: `grant_type=${grant_type}&client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
     })
       .then(response => response.json())
       .then(result => {
         if (result)
-          fetch(`http://10.58.5.139:3000/users/login`, {
+          fetch(`http://43.201.31.17:3000/users/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

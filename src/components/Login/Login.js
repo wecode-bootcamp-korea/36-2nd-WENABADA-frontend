@@ -1,5 +1,5 @@
 import React from 'react';
-import { REST_API_KEY, REDIRECT_URI } from './KaKaoData';
+import { REDIRECT_URI } from './KaKaoData';
 import * as S from './LoginStyle';
 
 function Login({ setLoginModalOpen }) {
@@ -7,7 +7,9 @@ function Login({ setLoginModalOpen }) {
     setLoginModalOpen(false);
   };
 
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_KEY = process.env.REACT_APP_REST_APP_KEY;
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const handleLoginKakao = () => {
     window.location.replace(KAKAO_AUTH_URL);
