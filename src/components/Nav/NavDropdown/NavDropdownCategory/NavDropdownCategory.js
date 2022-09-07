@@ -1,40 +1,50 @@
 import React from 'react';
 import { Category } from './NavDropdownCategoryStyle.js';
-import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilState, useResetRecoilState } from 'recoil';
+import {
+  mainProductsData,
+  categoryState,
+  searchValue,
+} from '../../../../atom.js';
 
 function NavDropdownCategory({
   name,
-  setSelectDropdown,
   id,
-  selectDropdown,
   currentIndex,
   nextIndex,
+  setIsDropdownHover,
 }) {
-  const navigate = useNavigate();
+  const setMainProductsDataState = useSetRecoilState(mainProductsData);
+  const [categoryStates, setCategoryStates] = useRecoilState(categoryState);
+  const setSearchValues = useResetRecoilState(searchValue);
 
-  const categoryNavigate = () => navigate('/', { state: selectDropdown });
   const navDropdownCategoryMouseEnter = () => {
     nextIndex !== ''
-      ? setSelectDropdown({
-          ...selectDropdown,
+      ? setCategoryStates({
+          ...categoryStates,
           [currentIndex]: id,
           [nextIndex]: -1,
         })
-      : setSelectDropdown({
-          ...selectDropdown,
+      : setCategoryStates({
+          ...categoryStates,
           [currentIndex]: id,
         });
   };
 
   return (
     <Category
-      onClick={categoryNavigate}
       onMouseEnter={navDropdownCategoryMouseEnter}
+      onClick={() => {
+        setMainProductsDataState(categoryStates);
+        setIsDropdownHover(false);
+        setSearchValues();
+        window.scroll(0, 0);
+      }}
       style={{
         backgroundColor: `${
-          selectDropdown[currentIndex] === id ? '#ff5058' : '#ffffff'
+          categoryStates[currentIndex] === id ? '#ff5058' : '#ffffff'
         }`,
-        color: `${selectDropdown[currentIndex] === id ? 'white' : '#888888'}`,
+        color: `${categoryStates[currentIndex] === id ? 'white' : '#888888'}`,
       }}
     >
       {name}

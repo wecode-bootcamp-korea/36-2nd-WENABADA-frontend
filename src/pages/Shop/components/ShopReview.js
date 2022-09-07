@@ -5,7 +5,7 @@ import styled from 'styled-components';
 function ShopReview({ id, name, social_id, review }) {
   const navigate = useNavigate();
   const goToProduct = id => {
-    navigate(`/products/info?id=${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

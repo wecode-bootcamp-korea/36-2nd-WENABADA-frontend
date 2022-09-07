@@ -102,7 +102,10 @@ function Footer() {
       <S.FooterBottom>
         <S.FooterBottomWrap>
           <S.FooterBottomLeft>
-            <S.FooterBottomLeftImage src="images/security.png" alt="인증마크" />
+            <S.FooterBottomLeftImage
+              src="/images/security.png"
+              alt="인증마크"
+            />
             <S.FooterBottomLeftText>
               [인증범위] 번개장터 중고거래 플랫폼 서비스 운영(심사받지 않은
               물리적 인프라 제외)

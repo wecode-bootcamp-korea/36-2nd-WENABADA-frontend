@@ -4,14 +4,18 @@ import DropDown from '../../components/DropDown/DropDown';
 import RelationCarousel from './RelationCarousel/RelationCarousel';
 import { CATEGORY_LIST } from '../Main/ListProducts/CATEGORY_LIST';
 import { useNavigate, useParams } from 'react-router-dom';
+import { mainProductsData } from '../../atom';
+import { useRecoilState } from 'recoil';
+import { API } from '../../config';
 
 function Detail() {
+  const [mainProductsDataState, setMainProductsDataState] =
+    useRecoilState(mainProductsData);
   const [isHeart, setIsHeart] = useState();
   const [userInfo, setUserInfo] = useState([]);
   const [userProducts, setUserProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [itemRoot, setItemRoot] = useState([]);
-  const { first, second, third } = itemRoot;
+  const { first, second, third } = mainProductsDataState;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -24,41 +28,52 @@ function Detail() {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `http://10.58.5.86:3000/product/info?id=${productId}&userId=2408401426`,
-      {
-        method: 'GET',
-      }
-    )
-      .then(res => res.json())
-      .then(data => setProduct(data[0]));
-  }, [productId]);
-
-  useEffect(() => {
-    fetch(`http://10.58.5.86:3000/product/category?id=${productId}`, {
-      method: 'GET',
+    fetch(`${API.DETAIL_PRODUCT}${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
     })
       .then(res => res.json())
       .then(data => {
-        setItemRoot({
+        setProduct(data[0]);
+      });
+  }, [productId]);
+
+  useEffect(() => {
+    fetch(`${API.DETAIL_CATEGORY}${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setMainProductsDataState({
           first: (data[0].first + 1) % 2,
           second: (data[0].second + 1) % 2,
           third: (data[0].third + 1) % 2,
         });
       });
-  }, [productId]);
+  }, [productId, setMainProductsDataState]);
 
   useEffect(() => {
-    fetch(`http://10.58.5.86:3000/product/seller/info?id=${productId}`, {
-      method: 'GET',
+    fetch(`${API.DETAIL_USER_INFO}${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
     })
       .then(res => res.json())
       .then(data => setUserInfo(data[0]));
   }, [productId]);
 
   useEffect(() => {
-    fetch(`http://10.58.5.86:3000/product/seller/product?id=${productId}`, {
-      method: 'GET',
+    fetch(`${API.DETAIL_USER_PRODUCTS}${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
     })
       .then(res => res.json())
       .then(data => {
@@ -67,12 +82,12 @@ function Detail() {
   }, [productId]);
 
   useEffect(() => {
-    fetch(
-      `http://10.58.5.86:3000/product/checklike?id=${productId}&userId=2408401426`,
-      {
-        method: 'GET',
-      }
-    )
+    fetch(`${API.DETAIL_IS_LIKE}${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
+    })
       .then(res => res.json())
       .then(data => {
         data.message === 'TRUE' ? setIsHeart(true) : setIsHeart(false);
@@ -80,14 +95,15 @@ function Detail() {
   }, [productId]);
 
   useEffect(() => {
-    fetch(`http://10.58.5.86:3000/product/seller/review?id=${productId}`, {
-      method: 'GET',
+    fetch(API.DETAIL_REVIEW + productId, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
+      },
     })
       .then(res => res.json())
       .then(data => {
-        if (data.message === 'REVIEW_NOT_EXIST') {
-          return;
-        } else {
+        if (data.message !== 'REVIEW_NOT_EXIST') {
           setReviews(data);
         }
       });
@@ -101,34 +117,42 @@ function Detail() {
       setIsHeart(true);
       setProduct({ ...product, likes: product.likes + 1 });
     }
-    fetch(
-      `http://10.58.5.86:3000/product/like?id=${productId}&userId=2408401426`,
-      {
-        method: 'POST',
-      }
-    );
-  };
-
-  const rootDelivery = () => {
-    navigate('/', {
-      state: {
-        itemRoot: itemRoot,
+    fetch(API.DETAIL_SET_LIKE + productId, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
       },
     });
+  };
+
+  const goToShopProduct = () => {
+    fetch(API.PATCH_LASTEST, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        productId: userProducts[0].id,
+      }),
+    });
+    navigate(`/product/${userProducts[0].id}`);
+    window.scroll(0, 0);
   };
 
   const pay = () => {
     alert('구매가 완료되었습니다.');
   };
 
-  const price = Number(product.price).toLocaleString();
+  const price = Number(product?.price).toLocaleString();
 
-  if (itemRoot.length === 0) return;
+  if (mainProductsDataState.length === 0) return;
 
   return (
     <S.Area>
       <S.Container>
-        <DropDown itemRoot={itemRoot} setItemRoot={setItemRoot} />
+        <DropDown />
         <S.ProductContainer>
           <S.ProductImgCover>
             <S.ProductImg src={product.image_url} />
@@ -182,7 +206,22 @@ function Detail() {
                   />
                   찜 {product.likes}
                 </S.HeartBtn>
-                <S.PayBtn onClick={() => pay()}>바로구매</S.PayBtn>
+                <S.PayBtn
+                  onClick={() => {
+                    fetch(API.BUY_PRODUCT, {
+                      method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'Application/json',
+                      },
+                      body: JSON.stringify({ productId: productId }),
+                    });
+                    pay();
+                    navigate('/');
+                    window.scroll(0, 0);
+                  }}
+                >
+                  바로구매
+                </S.PayBtn>
               </S.ProductBtnBox>
             </S.ProductSideInfoBox>
           </S.ProductInfoBox>
@@ -205,7 +244,7 @@ function Detail() {
                   <S.SideIcon src="/images/list.png" />
                   카테고리
                 </S.SideTitle>
-                <S.CategoryBtn onClick={() => rootDelivery()}>
+                <S.CategoryBtn onClick={() => navigate('/')}>
                   {categoryName}
                   <S.RightArrow src="/images/rightArrow.png" />
                 </S.CategoryBtn>
@@ -226,11 +265,16 @@ function Detail() {
                 </S.UserBox>
               </S.UserArea>
               <S.StoreImgContainer>
-                <S.StoreImgBox>
+                <S.StoreImgBox onClick={goToShopProduct}>
                   <S.StoreImg src={userProducts[0]?.image_url} />
                   <S.StorePrice>{userProducts[0]?.price}원</S.StorePrice>
                 </S.StoreImgBox>
-                <S.StoreImgBox>
+                <S.StoreImgBox
+                  onClick={() => {
+                    window.scroll(0, 0);
+                    navigate(`/product/${userProducts[1].id}`);
+                  }}
+                >
                   <S.StoreImg src={userProducts[1]?.image_url} />
                   <S.StorePrice>{userProducts[1]?.price}원</S.StorePrice>
                 </S.StoreImgBox>

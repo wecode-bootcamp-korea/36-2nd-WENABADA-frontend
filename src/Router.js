@@ -15,9 +15,10 @@ const Router = () => {
       <Routes>
         <Route path="/post" element={<Post />} />
         <Route path="/" element={<Main />} />
-        <Route path="/products/info" element={<Detail />} />
+        <Route path="/:searchValue" element={<Main />} />
         <Route path="/auth/kakao/callback" element={<LoginLoading />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:id" element={<Detail />} />
       </Routes>
       <Footer />
     </BrowserRouter>

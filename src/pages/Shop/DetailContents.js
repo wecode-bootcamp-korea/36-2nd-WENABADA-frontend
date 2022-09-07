@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ShopProduct from './components/ShopProduct';
 import ShopReview from './components/ShopReview';
 import LikeProduct from './components/LikeProduct';
 import ShopProfileCard from './components/ShopProfileCard';
 import styled from 'styled-components';
+import { API } from '../../config';
 
 function DetailContents({ activeTab }) {
   const [product, setProduct] = useState([]);
@@ -11,8 +12,8 @@ function DetailContents({ activeTab }) {
   const [like, setLike] = useState([]);
   const [following, setFollowing] = useState([]);
 
-  if (activeTab === 1) {
-    fetch('http://10.58.5.86:3000/shop/product', {
+  useEffect(() => {
+    fetch(API.SHOP_PRODUCT, {
       headers: { Authorization: localStorage.getItem('token') },
     })
       .then(res => res.json())
@@ -20,17 +21,36 @@ function DetailContents({ activeTab }) {
         setProduct(res.myStoreProduct);
       });
 
-    // MOCK_DATA용 fetch입니다.
-    // fetch('http://localhost:3000/data/product.json')
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     setProduct(res);
-    //   });
+    fetch(API.SHOP_REVIEW, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setReview(res.myStoreReviewInfo);
+      });
 
+    fetch(API.SHOP_LIKE, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setLike(res.myStoreLikeInfo);
+      });
+
+    fetch(API.SHOP_FOLLOW, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setFollowing(res.myStoreFollowingInfo);
+      });
+  }, []);
+
+  if (activeTab === 1) {
     return (
       <Contents>
         <Title>
-          상품<Count>{product.length}</Count>
+          상품<Count>{product && product.length}</Count>
         </Title>
         {product.length === 0 ? (
           <None>아직 등록한 상품이 없습니다. </None>
@@ -54,21 +74,6 @@ function DetailContents({ activeTab }) {
   }
 
   if (activeTab === 2) {
-    fetch('http://10.58.5.86:3000/shop/review', {
-      headers: { Authorization: localStorage.getItem('token') },
-    })
-      .then(res => res.json())
-      .then(res => {
-        setReview(res.myStoreReviewInfo);
-      });
-
-    // MOCK_DATA용 fetch입니다.
-    // fetch('http://localhost:3000/data/review.json')
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     setReview(res);
-    //   });
-
     return (
       <Contents>
         <Title>
@@ -94,21 +99,6 @@ function DetailContents({ activeTab }) {
   }
 
   if (activeTab === 3) {
-    fetch('http://10.58.5.86:3000/shop/like', {
-      headers: { Authorization: localStorage.getItem('token') },
-    })
-      .then(res => res.json())
-      .then(res => {
-        setLike(res.myStoreLikeInfo);
-      });
-
-    // MOCK_DATA용 fetch입니다.
-    // fetch('http://localhost:3000/data/like.json')
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     setLike(res);
-    //   });
-
     return (
       <Contents>
         <Title>
@@ -136,21 +126,6 @@ function DetailContents({ activeTab }) {
   }
 
   if (activeTab === 4) {
-    fetch('http://10.58.5.86:3000/shop/following', {
-      headers: { Authorization: localStorage.getItem('token') },
-    })
-      .then(res => res.json())
-      .then(res => {
-        setFollowing(res.myStoreFollowingInfo);
-      });
-
-    // MOCK_DATA용 fetch입니다.
-    // fetch('http://localhost:3000/data/following.json')
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     setFollowing(res);
-    //   });
-
     return (
       <Contents>
         <Title>

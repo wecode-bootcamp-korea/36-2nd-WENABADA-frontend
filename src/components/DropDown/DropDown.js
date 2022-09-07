@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { CATEGORY_LIST } from '../../pages/Main/ListProducts/CATEGORY_LIST';
 import * as S from './Styled.DropDown';
+import { useRecoilState } from 'recoil';
+import { mainProductsData } from '../../atom';
 import { useNavigate } from 'react-router-dom';
-import useDidMountEffect from './useDidMountEffect';
 
-const DropDown = ({ itemRoot, setItemRoot }) => {
-  const navigate = useNavigate();
+const DropDown = () => {
+  const [mainProductsDataState, setMainProductsData] =
+    useRecoilState(mainProductsData);
   const [isDrop, setIsDrop] = useState({});
 
-  const { first, second, third } = itemRoot;
+  const navigate = useNavigate();
+
+  const { first, second, third } = mainProductsDataState;
 
   let categoryTitle = [CATEGORY_LIST[first]?.name];
   let categories = [CATEGORY_LIST];
@@ -27,27 +31,25 @@ const DropDown = ({ itemRoot, setItemRoot }) => {
 
   const resetRoot = (idx, subIdx) => {
     if (idx === 0) {
-      setItemRoot(itemRoot => ({
+      setMainProductsData(itemRoot => ({
         ...itemRoot,
         first: subIdx,
         second: -1,
         third: -1,
       }));
     } else if (idx === 1) {
-      setItemRoot(itemRoot => ({ ...itemRoot, second: subIdx, third: -1 }));
+      setMainProductsData(itemRoot => ({
+        ...itemRoot,
+        second: subIdx,
+        third: -1,
+      }));
     } else if (idx === 2) {
-      setItemRoot(itemRoot => ({ ...itemRoot, third: subIdx }));
+      setMainProductsData(itemRoot => ({ ...itemRoot, third: subIdx }));
     }
     setIsDrop({});
+    window.scroll(0, 0);
+    navigate('/');
   };
-
-  useDidMountEffect(() => {
-    navigate('/', {
-      state: {
-        itemRoot: itemRoot,
-      },
-    });
-  }, [first, second, third]);
 
   return (
     <S.DropDownContainer>

@@ -5,7 +5,7 @@ export const Area = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 230px;
-  padding-bottom: 1300px;
+  padding-bottom: 100px;
 `;
 
 export const Container = styled.div`

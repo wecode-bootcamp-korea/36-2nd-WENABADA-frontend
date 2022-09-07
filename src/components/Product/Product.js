@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './Styled.Product';
 import { useNavigate } from 'react-router-dom';
-
+import { API } from '../../config';
 function Product({ name, address, price, image_url, date, id }) {
   const navigate = useNavigate();
   const markedPrice = Number(price).toLocaleString();
@@ -27,7 +27,18 @@ function Product({ name, address, price, image_url, date, id }) {
   };
 
   const goToDetail = () => {
+    fetch(API.PATCH_LASTEST, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        productId: id,
+      }),
+    });
     navigate(`/product/${id}`);
+    window.scroll(0, 0);
   };
 
   return (
@@ -45,7 +56,7 @@ function Product({ name, address, price, image_url, date, id }) {
       </S.InfoBox>
       {address && (
         <S.LocationBox>
-          <S.Icon src="https://cdn-user-icons.flaticon.com/75700/75700806/1661771881165.svg?token=exp=1661772782~hmac=cb4b7e54faa1c6515798ac48edc9371f" />
+          <S.Icon src="/images/place.png" />
           <S.Location>{address}</S.Location>
         </S.LocationBox>
       )}

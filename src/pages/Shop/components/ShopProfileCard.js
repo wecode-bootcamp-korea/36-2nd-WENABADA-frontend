@@ -18,6 +18,7 @@ function ShopProfileCard({ user_id, social_id, product, follow }) {
       return product;
     }
   };
+
   return (
     <ShopProfileCardContainer>
       <Icon>

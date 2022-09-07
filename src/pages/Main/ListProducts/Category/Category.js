@@ -1,10 +1,14 @@
 import React from 'react';
 import * as S from './Styled.Category';
 import { CATEGORY_LIST } from '../CATEGORY_LIST';
-import { useNavigate } from 'react-router-dom';
-const Category = ({ itemRoot, setItemRoot }) => {
-  const { first, second, third } = itemRoot;
-  const navigate = useNavigate();
+import { mainProductsData, searchValue } from '../../../../atom';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+
+const Category = () => {
+  const [mainProductsDataState, setMainProductsDataState] =
+    useRecoilState(mainProductsData);
+  const setSearchValues = useResetRecoilState(searchValue);
+  const { first, second, third } = mainProductsDataState;
   let categories = [];
 
   if (second === -1) {
@@ -18,20 +22,17 @@ const Category = ({ itemRoot, setItemRoot }) => {
   const emptyNum = 5 - (categories.length % 5) - 1;
 
   const resetRoot = idx => {
+    setSearchValues();
     if (second === -1) {
-      setItemRoot({ ...itemRoot, second: idx });
+      setMainProductsDataState({ ...mainProductsDataState, second: idx });
     } else if (third === -1) {
-      setItemRoot({ ...itemRoot, third: idx });
+      setMainProductsDataState({ ...mainProductsDataState, third: idx });
     }
-  };
-
-  const goToMain = () => {
-    navigate('/');
   };
 
   return (
     <S.CategoryList>
-      <S.Category onClick={() => goToMain()}>
+      <S.Category>
         전체보기 <S.RightArrow src="images/rightArrow.png" alt="" />
       </S.Category>
 

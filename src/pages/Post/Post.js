@@ -3,8 +3,11 @@ import PostSetImage from './PostSetImage/PostSetImage.js';
 import { CategoryData, AddressData } from './PostCategoryData.js';
 import * as S from './PostStyle.js';
 import PostCategory from './PostCategory/PostCategory.js';
+import { useNavigate } from 'react-router-dom';
+import { API } from '../../config.js';
 
 function Post() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState('');
   const [inputValue, setInputValue] = useState({
     title: '',
@@ -77,7 +80,8 @@ function Post() {
       'description',
       inputValue.description && inputValue.description
     );
-    fetch('http://10.58.5.86:3000/test/upload', {
+    formData.append('userId', 23);
+    fetch(API.POST_PRODUCT, {
       method: 'POST',
       body: formData,
     });
@@ -89,7 +93,13 @@ function Post() {
   };
 
   return (
-    <S.Post enctype="multipart/form-data" onSubmit={handleSubmit}>
+    <S.Post
+      enctype="multipart/form-data"
+      onSubmit={e => {
+        handleSubmit(e);
+        navigate('/');
+      }}
+    >
       <S.PostWrap>
         <S.PostHearder>
           <S.PostHearderSpan>기본정보</S.PostHearderSpan>*필수항목
