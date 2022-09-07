@@ -1,4 +1,6 @@
-## TEAMNAME - WENABADA
+# WENABADA
+
+## 팀원 소개
 
 > - FRONT_END
 >   > 박승민 <br/>
