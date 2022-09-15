@@ -1,5 +1,7 @@
 ## TEAMNAME - WENABADA
 
+[![WENABADA](https://img.youtube.com/vi/HDuGehcfV14/0.jpg)](https://www.youtube.com/watch?v=HDuGehcfV14)
+
 > - FRONT_END
 >   > 박승민 <br/>
 >   > 조민재 <br/>
