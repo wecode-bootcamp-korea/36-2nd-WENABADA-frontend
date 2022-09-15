@@ -65,7 +65,9 @@ function Detail() {
       },
     })
       .then(res => res.json())
-      .then(data => setUserInfo(data[0]));
+      .then(data => {
+        setUserInfo(data[0]);
+      });
   }, [productId]);
 
   useEffect(() => {

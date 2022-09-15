@@ -80,7 +80,7 @@ function Post() {
       'description',
       inputValue.description && inputValue.description
     );
-    formData.append('userId', 23);
+    formData.append('userId', 21);
     fetch(API.POST_PRODUCT, {
       method: 'POST',
       body: formData,

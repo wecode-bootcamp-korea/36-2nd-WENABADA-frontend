@@ -108,7 +108,7 @@ const ListProducts = () => {
         {mainProductsDataState.first > -1 && <Category />}
         <S.ItemInfoContainer>
           <S.ItemInfoBox>
-            <S.Title>가방의 전체상품</S.Title>
+            <S.Title>해당 카테고리의 전체상품</S.Title>
             <S.ItemNum>{itemTotalNum}개</S.ItemNum>
           </S.ItemInfoBox>
           <S.SequenceBox>
@@ -133,7 +133,7 @@ const ListProducts = () => {
           </S.SequenceBox>
         </S.ItemInfoContainer>
         <S.ProductContainer>
-          {products.length > 1 &&
+          {products.length > 0 &&
             products.map(product => {
               return <Product key={product.id} {...product} />;
             })}
